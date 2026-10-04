@@ -1,0 +1,96 @@
+### Install the "REST Client" extension in VS Code, then click "Send Request" above each block.
+### 12 sample students are loaded automatically when the app starts.
+
+### ================= READ =================
+
+### Read the first page (5 students, sorted by id)
+GET http://localhost:8080/api/students
+
+### Search: name or email contains "ka"
+GET http://localhost:8080/api/students?keyword=ka
+
+### Filter by course and status
+GET http://localhost:8080/api/students?course=Data Science&status=ACTIVE
+
+### Sort by name Z->A, page 2, 3 per page
+GET http://localhost:8080/api/students?sort=name,desc&page=1&size=3
+
+### Read one student
+GET http://localhost:8080/api/students/1
+
+### Course names
+GET http://localhost:8080/api/students/courses
+
+### Statistics
+GET http://localhost:8080/api/students/stats
+
+### ================= CREATE =================
+
+### Create a student
+POST http://localhost:8080/api/students
+Content-Type: application/json
+
+{
+  "name": "Manuthi",
+  "email": "manuthi@example.com",
+  "age": 21,
+  "phone": "0771234567",
+  "course": "Software Engineering",
+  "status": "ACTIVE",
+  "enrollmentDate": "2025-02-01"
+}
+
+### Validation error -> 400 with a message for each wrong field
+POST http://localhost:8080/api/students
+Content-Type: application/json
+
+{
+  "name": "",
+  "email": "not-an-email",
+  "age": 5,
+  "phone": "abc",
+  "course": "",
+  "status": "ACTIVE"
+}
+
+### Duplicate email -> 409 Conflict
+POST http://localhost:8080/api/students
+Content-Type: application/json
+
+{
+  "name": "Copy",
+  "email": "kasun@example.com",
+  "age": 21,
+  "course": "Data Science",
+  "status": "ACTIVE"
+}
+
+### ================= UPDATE =================
+
+### Update all fields of student 1
+PUT http://localhost:8080/api/students/1
+Content-Type: application/json
+
+{
+  "name": "Kasun Perera",
+  "email": "kasun.p@example.com",
+  "age": 22,
+  "phone": "0771234567",
+  "course": "Data Science",
+  "status": "ACTIVE",
+  "enrollmentDate": "2024-02-01"
+}
+
+### Change only the status (PATCH)
+PATCH http://localhost:8080/api/students/1/status
+Content-Type: application/json
+
+{ "status": "GRADUATED" }
+
+### ================= DELETE =================
+
+### Delete student 1
+DELETE http://localhost:8080/api/students/1
+
+### Read a student that doesn't exist -> 404
+GET http://localhost:8080/api/students/999

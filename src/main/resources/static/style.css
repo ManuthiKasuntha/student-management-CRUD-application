@@ -1,0 +1,243 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: #f2f4f8;
+    color: #222;
+}
+
+.container {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 24px 16px;
+}
+
+h1 {
+    text-align: center;
+    color: #2b4c7e;
+}
+
+h2 {
+    margin-top: 0;
+    font-size: 20px;
+}
+
+.card {
+    background: white;
+    padding: 20px;
+    margin-bottom: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* ---------- Statistics ---------- */
+.stats {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    gap: 12px;
+    margin-bottom: 20px;
+}
+
+.stat-card {
+    background: white;
+    padding: 16px;
+    border-radius: 8px;
+    border-top: 4px solid #2b4c7e;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+.stat-card span {
+    display: block;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.stat-card small {
+    color: #666;
+}
+
+.stat-card.active    { border-top-color: #27ae60; }
+.stat-card.graduated { border-top-color: #2980b9; }
+.stat-card.suspended { border-top-color: #c0392b; }
+
+/* Simple bar chart: one row per course */
+.bar-row {
+    display: grid;
+    grid-template-columns: 170px 1fr 30px;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 8px;
+    font-size: 14px;
+}
+
+.bar {
+    height: 16px;
+    background: #2b4c7e;
+    border-radius: 4px;
+}
+
+/* ---------- Form ---------- */
+.form-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 4px 16px;
+}
+
+label {
+    display: block;
+    margin-top: 10px;
+    font-weight: bold;
+}
+
+input,
+select {
+    width: 100%;
+    padding: 8px;
+    margin-top: 4px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 15px;
+    background: white;
+}
+
+input.invalid {
+    border-color: #c0392b;
+}
+
+.field-error {
+    display: block;
+    min-height: 16px;
+    color: #c0392b;
+    font-size: 12px;
+}
+
+.buttons {
+    margin-top: 16px;
+}
+
+button {
+    padding: 8px 16px;
+    border: none;
+    border-radius: 4px;
+    background: #2b4c7e;
+    color: white;
+    font-size: 14px;
+    cursor: pointer;
+}
+
+button:hover {
+    opacity: 0.85;
+}
+
+button:disabled {
+    opacity: 0.4;
+    cursor: default;
+}
+
+button.secondary { background: #888; }
+button.edit      { background: #e0a100; }
+button.delete    { background: #c0392b; }
+
+#message {
+    margin: 12px 0 0;
+    min-height: 20px;
+}
+
+.success { color: green; }
+.error   { color: #c0392b; }
+
+/* ---------- Toolbar ---------- */
+.toolbar {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr 1fr;
+    gap: 10px;
+    margin-bottom: 12px;
+}
+
+.toolbar input,
+.toolbar select {
+    margin-top: 0;
+}
+
+/* ---------- Table ---------- */
+.table-wrap {
+    overflow-x: auto;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+th,
+td {
+    padding: 10px;
+    text-align: left;
+    border-bottom: 1px solid #eee;
+    white-space: nowrap;
+}
+
+th {
+    background: #2b4c7e;
+    color: white;
+}
+
+th[data-sort] {
+    cursor: pointer;
+    user-select: none;
+}
+
+th[data-sort]:hover {
+    background: #3a5f96;
+}
+
+td select {
+    width: auto;
+    margin: 0;
+    padding: 4px;
+    font-size: 13px;
+    font-weight: bold;
+}
+
+/* Status colours */
+select.ACTIVE    { color: #27ae60; }
+select.GRADUATED { color: #2980b9; }
+select.SUSPENDED { color: #c0392b; }
+
+td button {
+    padding: 5px 10px;
+    margin-right: 4px;
+}
+
+#empty-text {
+    color: #888;
+    text-align: center;
+}
+
+/* ---------- Pagination ---------- */
+.pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 16px;
+    margin-top: 16px;
+}
+
+/* ---------- Small screens ---------- */
+@media (max-width: 700px) {
+    .toolbar {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .toolbar input {
+        grid-column: 1 / -1;
+    }
+
+    .bar-row {
+        grid-template-columns: 110px 1fr 30px;
+    }
+}

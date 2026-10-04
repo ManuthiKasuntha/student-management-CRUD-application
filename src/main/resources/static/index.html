@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Manager</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Student Manager</h1>
+
+        <!-- ===== Statistics (GET /api/students/stats) ===== -->
+        <section class="stats">
+            <div class="stat-card"><span id="stat-total">0</span><small>Total</small></div>
+            <div class="stat-card active"><span id="stat-active">0</span><small>Active</small></div>
+            <div class="stat-card graduated"><span id="stat-graduated">0</span><small>Graduated</small></div>
+            <div class="stat-card suspended"><span id="stat-suspended">0</span><small>Suspended</small></div>
+            <div class="stat-card"><span id="stat-age">0</span><small>Average age</small></div>
+        </section>
+
+        <section class="card">
+            <h2>Students per course</h2>
+            <!-- Bars are added here by app.js -->
+            <div id="course-chart"></div>
+        </section>
+
+        <!-- ===== Form: used for both Create (POST) and Update (PUT) ===== -->
+        <form id="student-form" class="card" novalidate>
+            <h2 id="form-title">Add Student</h2>
+
+            <!-- Hidden field: empty = create new, has a value = update existing -->
+            <input type="hidden" id="student-id">
+
+            <div class="form-grid">
+                <div class="field">
+                    <label for="name">Name *</label>
+                    <input type="text" id="name">
+                    <small class="field-error" data-for="name"></small>
+                </div>
+                <div class="field">
+                    <label for="email">Email *</label>
+                    <input type="email" id="email">
+                    <small class="field-error" data-for="email"></small>
+                </div>
+                <div class="field">
+                    <label for="age">Age *</label>
+                    <input type="number" id="age">
+                    <small class="field-error" data-for="age"></small>
+                </div>
+                <div class="field">
+                    <label for="phone">Phone</label>
+                    <input type="tel" id="phone" placeholder="0771234567">
+                    <small class="field-error" data-for="phone"></small>
+                </div>
+                <div class="field">
+                    <label for="course">Course *</label>
+                    <!-- list="course-options" shows existing courses as suggestions -->
+                    <input type="text" id="course" list="course-options">
+                    <datalist id="course-options"></datalist>
+                    <small class="field-error" data-for="course"></small>
+                </div>
+                <div class="field">
+                    <label for="status">Status *</label>
+                    <select id="status">
+                        <option value="ACTIVE">Active</option>
+                        <option value="GRADUATED">Graduated</option>
+                        <option value="SUSPENDED">Suspended</option>
+                    </select>
+                    <small class="field-error" data-for="status"></small>
+                </div>
+                <div class="field">
+                    <label for="enrollmentDate">Enrollment date</label>
+                    <input type="date" id="enrollmentDate">
+                    <small class="field-error" data-for="enrollmentDate"></small>
+                </div>
+            </div>
+
+            <div class="buttons">
+                <button type="submit" id="save-btn">Add</button>
+                <button type="button" id="cancel-btn" class="secondary" hidden>Cancel</button>
+            </div>
+
+            <p id="message"></p>
+        </form>
+
+        <!-- ===== List: search, filter, sort, pagination ===== -->
+        <section class="card">
+            <h2>All Students</h2>
+
+            <div class="toolbar">
+                <input type="search" id="search" placeholder="Search name or email...">
+                <select id="filter-course">
+                    <option value="">All courses</option>
+                </select>
+                <select id="filter-status">
+                    <option value="">All statuses</option>
+                    <option value="ACTIVE">Active</option>
+                    <option value="GRADUATED">Graduated</option>
+                    <option value="SUSPENDED">Suspended</option>
+                </select>
+                <select id="page-size">
+                    <option value="5">5 per page</option>
+                    <option value="10">10 per page</option>
+                    <option value="20">20 per page</option>
+                </select>
+            </div>
+
+            <div class="table-wrap">
+                <table>
+                    <thead>
+                        <!-- data-sort = the Student field to sort by when the header is clicked -->
+                        <tr>
+                            <th data-sort="id">ID</th>
+                            <th data-sort="name">Name</th>
+                            <th data-sort="email">Email</th>
+                            <th data-sort="age">Age</th>
+                            <th data-sort="course">Course</th>
+                            <th data-sort="enrollmentDate">Enrolled</th>
+                            <th>Status</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <!-- Rows are added here by app.js -->
+                    <tbody id="student-table"></tbody>
+                </table>
+            </div>
+            <p id="empty-text" hidden>No students found.</p>
+
+            <div class="pagination">
+                <button type="button" id="prev-btn" class="secondary">&laquo; Prev</button>
+                <span id="page-info">Page 1 of 1</span>
+                <button type="button" id="next-btn" class="secondary">Next &raquo;</button>
+            </div>
+        </section>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
